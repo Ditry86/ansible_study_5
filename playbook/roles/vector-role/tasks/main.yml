@@ -44,28 +44,29 @@
       src: vector.yml.j2
       mode: 0644
       dest: "{{ vector_config_dir }}/vector.yml"
-  # - name: Enable vector service
-  #   become: true
-  #   ansible.builtin.service:
-  #     name: vector
-  #     enabled: true
-  #   when: ansible_facts.os_family == "RedHat"
-  # - name: Change systemd vector.service unit (start with required config)
-  #   become: true
-  #   ansible.builtin.replace:
-  #     path: /etc/systemd/system/multi-user.target.wants/vector.service
-  #     regexp: '[$]'
-  #     after: "^(usr/bin/vector)[/s]*[a-z]*"
-  #     #before: "$"
-  #     replace: "--config-yaml={{ vector_config_dir }}/vector.yml"
+  - name: Enable vector service
+    become: true
+    ansible.builtin.service:
+      name: vector
+      enabled: true
+    when: ansible_facts.os_family == "RedHat"
+  - name: Change systemd vector.service unit (start with required config)
+    become: true
+    ansible.builtin.replace:
+      path: /etc/systemd/system/multi-user.target.wants/vector.service
+      regexp: '[$]'
+      after: "^(usr/bin/vector)[/s]*[a-z]*"
+      before: "$"
+      replace: "--config-yaml={{ vector_config_dir }}/vector.yml"
+    when: ansible_facts.os_family == "RedHat"
   - name: Create source log file
     become: true
     ansible.builtin.file:
       path: "{{ ansible_user_dir }}/test.log"
       state: touch
       mode: 0644
-  - name: Start vector
-    ansible.builtin.shell: "vector --config {{ vector_config_dir }}/vector.yml"
+  - name: Start vector process [Debian]
+    ansible.builtin.shell: vector --config /etc/vector/vector.yml
 
   
   

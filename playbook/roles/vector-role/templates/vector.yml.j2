@@ -6,18 +6,16 @@ sources:
     include:
       - "{{ ansible_user_dir }}/test.log"
     read_from: beginning
-  sinks:
-    clickhouse:
-      type: clickhouse
-      inputs: 
-        - source_log_file
-      auth: 
-        user: "{{ clickhouse_user }}"
-        password: "{{ clickhouse_password }}"
-        strategy: basic
-      compression: gzip
-      database: logs
-      encoding: null
-      endpoint: "http://{{ dest_host }}:8123"
-      skip_unknown_fields: null
-      table: test_logs
+sinks:
+  clickhouse:
+    type: clickhouse
+    inputs: 
+      - source_log_file
+    auth: 
+      user: "{{ clickhouse_user }}"
+      password: "{{ clickhouse_password }}"
+      strategy: basic
+    compression: gzip
+    database: logs
+    endpoint: 127.0.0.1:8123
+    table: test_logs
