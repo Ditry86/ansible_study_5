@@ -15,12 +15,14 @@
   - name: Check if vector config file exists
     assert:
       that:
-        - vector_conf.stat.exist == True
+        - vector_conf.stat.exists == True
       success_msg: "Vector config file exists"
       fail_msg: "Vector config file not exist :("
   - name: Vector config validating
     ansible.builtin.command: "vector validate /etc/vector/vector.yml"
     register: valid_result
+  - debug:
+      var: valid_result
   - name: Check result of validating
     assert:
       that: valid_result.rc == 0

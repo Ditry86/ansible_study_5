@@ -65,8 +65,8 @@
       path: "{{ ansible_user_dir }}/test.log"
       state: touch
       mode: 0644
-  - name: Start vector process [Debian]
-    ansible.builtin.shell: vector --config /etc/vector/vector.yml
+#  - name: Start vector process [Debian]
+#    ansible.builtin.shell: vector --config /etc/vector/vector.yml
 
   
   
