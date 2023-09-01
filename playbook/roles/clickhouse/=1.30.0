@@ -1,9 +1,0 @@
-Defaulting to user installation because normal site-packages is not writeable
-Collecting yamllint
-  Obtaining dependency information for yamllint from https://files.pythonhosted.org/packages/96/b3/ce98068f7598adfdcb0883bacc1c503db151f8fd76affea4dd424418a0f9/yamllint-1.32.0-py3-none-any.whl.metadata
-  Downloading yamllint-1.32.0-py3-none-any.whl.metadata (4.2 kB)
-Requirement already satisfied: pathspec>=0.5.3 in /home/ditry/.local/lib/python3.11/site-packages (from yamllint) (0.11.1)
-Requirement already satisfied: pyyaml in /home/ditry/.local/lib/python3.11/site-packages (from yamllint) (5.4.1)
-Using cached yamllint-1.32.0-py3-none-any.whl (65 kB)
-Installing collected packages: yamllint
-Successfully installed yamllint-1.32.0

@@ -24,26 +24,13 @@
         that: valid_result.rc == 0
         success_msg: "Vector config valid!"
         fail_msg: "Vector config not valid :("
-    # - name: Get status vector process
-    #   ansible.builtin.service:
-    #     name: "vector"
-    #     state: started
-    #   register: pg_service_status
-    # - debug:
-    #     msg: "{{ pg_service_status }}"    
-    # - name: Check vector running
-    #   assert:
-    #     that: pg_service_status.status.ActiveState
-    #     success_msg: "Started"
-    #     fail_msg: "Not started :("
-
-    - name: Getting Vector process IDs 
-      become: true
-      community.general.pids:
-        name: vector
-      register: pids_of_vector
-    - name: Check result of validating
+    - name: "Get process PID"
+      shell: >
+        echo -n
+        $(pgrep vector)
+      register: vector_pids
+    - name: Check running vector process
       assert:
-        that: pids_of_vector.pids != 0
-        success_msg: "PIDS of Vector:{{pids_of_vector.pids|join(',')}}"
+        that: vector_pids.stdout != 0
+        success_msg: "PIDS of Vector:{{ vector_pids.stdout }}"
         fail_msg: "Vector not started:("
