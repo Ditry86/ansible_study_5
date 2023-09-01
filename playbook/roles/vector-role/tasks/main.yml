@@ -69,7 +69,7 @@
   #     enabled: true
   #     status: started
   #   when: ansible_facts.os_family == "RedHat"      
-  - name: Start vector process [Debian]
+  - name: Start vector process
     ansible.builtin.shell: vector --config /etc/vector/vector.yml >/dev/null 2>&1 &
     async: 10
     poll: 0

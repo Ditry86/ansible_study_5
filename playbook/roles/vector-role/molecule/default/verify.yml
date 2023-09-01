@@ -36,7 +36,9 @@
     #     that: pg_service_status.status.ActiveState
     #     success_msg: "Started"
     #     fail_msg: "Not started :("
+
     - name: Getting Vector process IDs 
+      become: true
       community.general.pids:
         name: vector
       register: pids_of_vector
