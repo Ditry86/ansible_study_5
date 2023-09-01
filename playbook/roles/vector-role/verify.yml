@@ -16,7 +16,7 @@
         success_msg: "Vector config file exists"
         fail_msg: "Vector config file not exist :("
     - name: Vector config validating
-      ansible.builtin.command: "vector validate /etc/vector/vector.yml"
+      ansible.builtin.command: "vector validate --no-environment /etc/vector/vector.yml"
       register: valid_result
     - name: Check result of validating
       assert:

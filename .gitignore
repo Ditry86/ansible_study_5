@@ -6,3 +6,4 @@
 **/key.json
 **/.terraform/
 **/*.tfstate
+/venv/

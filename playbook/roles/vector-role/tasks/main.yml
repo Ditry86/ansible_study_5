@@ -16,6 +16,7 @@
       sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-* 
       sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.epel.cloud|g' /etc/yum.repos.d/CentOS-Linux-* 
     when: ansible_facts.os_family == "RedHat"
+    changed_when: false
   - name: Install vector rpm
     become: true
     ansible.builtin.yum:
@@ -23,8 +24,6 @@
       state: installed
       disable_gpg_check: true
       cacheonly: true
-      install_repoquery: false
-      install_weak_deps: false
     when: ansible_facts.os_family == "RedHat"
   - name: Get vector deb
     ansible.builtin.get_url:
@@ -44,29 +43,36 @@
       src: vector.yml.j2
       mode: 0644
       dest: "{{ vector_config_dir }}/vector.yml"
-  - name: Enable vector service
-    become: true
-    ansible.builtin.service:
-      name: vector
-      enabled: true
-    when: ansible_facts.os_family == "RedHat"
-  - name: Change systemd vector.service unit (start with required config)
-    become: true
-    ansible.builtin.replace:
-      path: /etc/systemd/system/multi-user.target.wants/vector.service
-      regexp: '[$]'
-      after: "^(usr/bin/vector)[/s]*[a-z]*"
-      before: "$"
-      replace: "--config-yaml={{ vector_config_dir }}/vector.yml"
-    when: ansible_facts.os_family == "RedHat"
+
+  # - name: Change systemd vector.service unit (start with required config)
+  #   become: true
+  #   ansible.builtin.replace:
+  #     path: /etc/systemd/system/multi-user.target.wants/vector.service
+  #     regexp: '[$]'
+  #     after: "^(usr/bin/vector)[/s]*[a-z]*"
+  #     before: "$"
+  #     replace: "--config-yaml={{ vector_config_dir }}/vector.yml"
+  #   when: ansible_facts.os_family == "RedHat"
+
   - name: Create source log file
     become: true
     ansible.builtin.file:
       path: "{{ ansible_user_dir }}/test.log"
       state: touch
       mode: 0644
-#  - name: Start vector process [Debian]
-#    ansible.builtin.shell: vector --config /etc/vector/vector.yml
-
+      access_time: preserve
+      modification_time: preserve
+  # - name: Enable vector service
+  #   become: true
+  #   ansible.builtin.service:
+  #     name: vector
+  #     enabled: true
+  #     status: started
+  #   when: ansible_facts.os_family == "RedHat"      
+  - name: Start vector process [Debian]
+    ansible.builtin.shell: vector --config /etc/vector/vector.yml >/dev/null 2>&1 &
+    async: 10
+    poll: 0
+    changed_when: false
   
   
