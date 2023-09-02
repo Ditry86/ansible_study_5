@@ -2,7 +2,7 @@
 
 ## Скрины и логи выполнения команд по пунктам:
 
-1. Molecule. Тестирование vector-role
+### 1. Molecule. Тестирование vector-role
 
 Результат тестирования, этап verify:
 
@@ -10,7 +10,7 @@
 
 [Лог тестирования vector-role](./applications/test_vector-role.log)
 
-2. Tox. Тестирование vector-role
+### 2. Tox. Тестирование vector-role
 
 Результат тестирования tox (python 3.7, ansible 2.10):
 
@@ -20,7 +20,8 @@
 
 ![Скрин (python 3.7, ansible 3.0)](./applications/tox_test.py37-ans30.png)
 
-2. Тэги решений заданий:
+
+## Тэги решений заданий:
 
 1.1.1 - Решение по заданию molecule ([ссылка на git repo](https://github.com/Ditry86/ansible_study_5/releases/tag/1.1.1))
 
