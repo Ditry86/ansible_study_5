@@ -15,5 +15,6 @@
 2. Тэги решений заданий:
 
 1.1.1 - Решение по заданию molecule ([ссылка на git repo](https://github.com/Ditry86/ansible_study_5/releases/tag/1.1.1))
+
 1.2.0 - Решение с двумя сценариями по заданию для tox ([ссылка на git repo](https://github.com/Ditry86/ansible_study_5/releases/tag/1.2.0))
 
